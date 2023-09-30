@@ -1,25 +1,20 @@
 {
-    "manifest_version": 3,
-    "name": "CoRead",
-    "description":"A simple reader for the web.",
-    "version": "1.0",
-    "permissions": ["activeTab"],
-    "icons":{
-    
-    },
-
-    "content_scripts": [
-        {
-          "matches": ["<all_urls>"],
-          "js": ["content.js"]
-        }
+  "name": "CoRead",
+  "version": "0.01",
+  "description": "CoRead",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
       ],
-
-    "browser_action": {
-        "default_popup": "popup.html",
-        "default_icon": {
- 
-        }   
+      "js": [
+        "contentScript.js"
+      ],
+      "run_at": "document_end"
     }
-    
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "manifest_version": 3
 }
