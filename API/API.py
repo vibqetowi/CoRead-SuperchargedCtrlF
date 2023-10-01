@@ -10,6 +10,7 @@ from flask import Flask, request, jsonify, make_response
 from pprint import pprint
 from config import *
 import pinecone
+from flask_cors import CORS
 import torch
 from sentence_transformers import SentenceTransformer
 from transformers import BartTokenizer, BartForConditionalGeneration
@@ -95,7 +96,7 @@ def generate_answer(query, context):
 
 # Create App
 app = Flask(__name__)
-
+CORS(app)
 
 def run_app():
     global server
@@ -151,31 +152,28 @@ def ask_cohere():
             # Get the search query from the form
             query = request.form['search_query']
 
-            context = query_pinecone(query, top_k=3)
+            context = query_pinecone(query, top_k=5)
             #debug statement to view context and scores
             # print(context)
 
             relevancy_of_text = check_relevancy(query)
-            if relevancy_of_text > 0.6:
-                matching_context = context["matches"]
-                citations = [doc["metadata"]['passage_text']
-                             for doc in matching_context]
+            matching_context = context["matches"]
+            citations = [doc["metadata"]['passage_text']
+                            for doc in matching_context]
 
-                co = cohere.Client(COHERE_API_KEY)
-                answer = co.generate(
-                    prompt=f"answer this question: {query}\n based on this text {citations}",
-                    stream=False, max_tokens=99, presence_penalty=0.3
-                )
+            co = cohere.Client(COHERE_API_KEY)
+            answer = co.generate(
+                prompt=f"answer this question: {query}\n based on this text {citations}",
+                stream=False, max_tokens=99, presence_penalty=0.3
+            )
 
-                # print(type(answer))
-                # print(dir(answer[0]))
-                # pprint(answer)
-                
-                answer = answer[0].text
+            # print(type(answer))
+            # print(dir(answer[0]))
+            # pprint(answer)
 
-                return jsonify({"answer": answer, "citations": citations, "confidence": relevancy_of_text})
-            else:
-                return jsonify({"message": "No relevant text found"})
+            answer = answer[0].text
+
+            return jsonify({"answer": answer, "citations": citations, "confidence": relevancy_of_text})
 
     except Exception as e:
         print("An error occurred: ", e)
