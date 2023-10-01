@@ -95,7 +95,7 @@ def generate_answer(query, context):
 
 # Create App
 app = Flask(__name__)
-
+CORS(app)
 
 def run_app():
     global server
@@ -170,7 +170,7 @@ def ask_cohere():
                 # print(type(answer))
                 # print(dir(answer[0]))
                 # pprint(answer)
-                
+
                 answer = answer[0].text
 
                 return jsonify({"answer": answer, "citations": citations, "confidence": relevancy_of_text})
