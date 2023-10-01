@@ -24,13 +24,17 @@ The retriever model converts text snippets into vectors and vice versa. The mode
 
 ### Generator Model
 
-This model is a generative AI that generates text upon input. The model used is BART pretrained for Q&A.
+This model is a generative AI that generates text upon input. The model used is BART pretrained for Q&A. This is associated to the `/ask` enpoint to run local models
 
 - [LFQA](https://yjernite.github.io/lfqa.html)
 
-### Tutorial
+### Generator API
+We also used the Cohere generator API to give an option that works better even though it is proprietary, Cohere was extensively used at MAIS 2022
 
-For beginners, a tutorial video titled "Open Source Generative AI in Question-Answering (NLP) using Python" by James Brigg was heavily utilized for the AI part.
+### Tutorial
+- [Cohere](https://cohere.com/)
+
+As we are beginners, a tutorial video titled "Open Source Generative AI in Question-Answering (NLP) using Python" by James Brigg was heavily utilized for the AI part.
 
 - [Tutorial Video](https://invidious.private.coffee/watch?v=L8U-pm-vZ4c)
 
@@ -38,7 +42,7 @@ For beginners, a tutorial video titled "Open Source Generative AI in Question-An
 
 The API provides the following endpoints:
 
-- `/ask` for asking questions and getting answers.
+- `/ask` and `/ask_cohere` for asking questions and getting answers.
 - `/vectorize_page` for vectorizing text passages.
 
 For detailed information on how to use these endpoints, refer to the code and documentation in this repository.
