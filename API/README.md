@@ -9,7 +9,7 @@ This project is an AI-powered Question Answering API that uses a retriever model
 To use this API, you'll need to install the following dependencies:
 
 ```bash
-pip install -qU datasets pinecone-client sentence-transformers torch pyngrok
+pip install - qU datasets pinecone-client sentence-transformers torch pyngrok cohere
 ```
 
 ## Citations
