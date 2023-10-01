@@ -1,9 +1,6 @@
 # %%
 # Install Dependencies
-# %pip install -qU datasets pinecone-client sentence-transformers torch pyngrok
-
-
-# %%
+import cohere
 import pandas as pd
 from tqdm import tqdm
 import threading
@@ -11,18 +8,21 @@ from pyngrok import ngrok
 from werkzeug.serving import make_server
 from flask import Flask, request, jsonify, make_response
 from pprint import pprint
-from transformers import BartTokenizer, BartForConditionalGeneration
-from sentence_transformers import SentenceTransformer
-import torch
+from config import *
 import pinecone
-from config import PINECONE_API_KEY
+import torch
+from sentence_transformers import SentenceTransformer
+from transformers import BartTokenizer, BartForConditionalGeneration
+# %pip install - qU datasets pinecone-client sentence-transformers torch pyngrok cohere
 
-# Connect to vector DB
+# %%
+
+#Connect to vector DB
 pinecone.init(
     api_key=PINECONE_API_KEY,
     environment="gcp-starter"
 )
-# basically a table in a db except it's not sql, hardcoded here because
+#basically a table in a db except it's not sql, hardcoded here because
 # free plan only lets you make one anyways
 index = pinecone.Index('genghis-khan')
 
@@ -64,9 +64,6 @@ def check_relevancy(query):
     # Access the score value
     score = context['matches'][0]['score']
 
-    # Check if the score is greater than 0.5
-    # this is an arbitrary value, but I've seen that
-    # a high match is around 0.8 while low is around 0.3
     return score
 
 
@@ -128,15 +125,54 @@ def ask():
             query = request.form['search_query']
 
             context = query_pinecone(query, top_k=3)
-            # debug statement to view context and scores
+            #debug statement to view context and scores
             print(context)
 
             relevancy_of_text = check_relevancy(query)
-            if relevancy_of_text > 0.5:
+            if relevancy_of_text > 0.6:
                 matching_context = context["matches"]
                 answer = generate_answer(query, matching_context)
                 citations = [doc["metadata"]['passage_text']
                              for doc in matching_context]
+                answer = answer[0]['text']
+                return jsonify({"answer": answer, "citations": citations, "confidence": relevancy_of_text})
+            else:
+                return jsonify({"message": "No relevant text found"})
+
+    except Exception as e:
+        print("An error occurred: ", e)
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+
+@app.route('/ask_cohere', methods=['POST'])
+def ask_cohere():
+    try:
+        if request.method == 'POST':
+            # Get the search query from the form
+            query = request.form['search_query']
+
+            context = query_pinecone(query, top_k=3)
+            #debug statement to view context and scores
+            # print(context)
+
+            relevancy_of_text = check_relevancy(query)
+            if relevancy_of_text > 0.6:
+                matching_context = context["matches"]
+                citations = [doc["metadata"]['passage_text']
+                             for doc in matching_context]
+
+                co = cohere.Client(COHERE_API_KEY)
+                answer = co.generate(
+                    prompt=f"answer this question: {query}\n based on this text {citations}",
+                    stream=False, max_tokens=99, presence_penalty=0.3
+                )
+
+                # print(type(answer))
+                # print(dir(answer[0]))
+                # pprint(answer)
+                
+                answer = answer[0].text
+
                 return jsonify({"answer": answer, "citations": citations, "confidence": relevancy_of_text})
             else:
                 return jsonify({"message": "No relevant text found"})
