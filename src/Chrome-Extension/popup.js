@@ -1,5 +1,5 @@
 const submitBtn = document.getElementById("submitBtn");
-const theUrl = "https://d8bd-37-120-244-62.ngrok-free.app//ask_cohere"
+const theUrl = "http://127.0.0.1:5000"
 
 submitBtn.addEventListener("click", async () => {
     const sentenceInput = document.getElementById("sentenceInput").value;

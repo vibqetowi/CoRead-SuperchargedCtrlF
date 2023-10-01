@@ -145,14 +145,13 @@ def ask():
         return jsonify({'error': 'Internal Server Error'}), 500
 
 
-@app.route('/ask_cohere', methods=['POST'])
+@app.route('/ask_cohere', methods=['POST','GET'])
 def ask_cohere():
     try:
-        if request.method == 'POST':
             # Get the search query from the form
             query = request.form['search_query']
 
-            context = query_pinecone(query, top_k=5)
+            context = query_pinecone(query, top_k=3)
             #debug statement to view context and scores
             # print(context)
 
