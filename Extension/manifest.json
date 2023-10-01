@@ -2,6 +2,7 @@
   "name": "CoRead",
   "version": "0.01",
   "description": "CoRead",
+  "manifest_version": 3,
   "content_scripts": [
     {
       "matches": [
@@ -30,5 +31,20 @@
       ]
     }
   ],
-  "manifest_version": 3
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Open the popup"
+    }
+  }
 }

@@ -13,8 +13,6 @@ pineconeScript.onload = async function () {
     document.head.appendChild(tokenizerScript);
 
     tokenizerScript.onload = async function () {
-      const Pinecone = window.Pinecone;
-      const loadTokenizer = window['universal-sentence-encoder'].loadTokenizer;
       const numberedLines = function () {
         const text = document.body.innerText;
         let numberedText = text.split('\n')
@@ -32,43 +30,7 @@ pineconeScript.onload = async function () {
 
 
       const name = document.head.title
-      const pinecone = new Pinecone();
-
-      await pinecone.init({
-        environment: "gcp-starter",
-        apiKey: "1ff3957c-24e8-4a00-9037-34a4fd541813",
-      });
-
-      await pinecone.createIndex({
-        name: name,
-        dimension: 512,
-        waitUntilReady: true,
-      });
-
-      await pinecone.describeIndex(name);
-      const index = pinecone.index(name)
-
-      let encodedLines = []
-
-      numberedLines.forEach(line => {
-        loadTokenizer().then(tokenizer => {
-          encodedLines.push(tokenizer.encode(line));
-        })
-      });
-
-      let count = 0
-      encodedLines.forEach(async encodedLine => {
-        await index.upsert([{
-          "id": count,
-          "values": encodedLine
-        }])
-        count++;
-      })
-
-      console.log(encodedLines)
-
-
-
+      const pinecone = new Pinecone()
     }
   }
 }
