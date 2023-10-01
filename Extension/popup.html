@@ -5,24 +5,13 @@
     <title>MAIS Hacks</title>
     <link rel="stylesheet" type="text/css" href="popup.css">
 
-    <!-- Single CSP meta tag with all directives -->
-    <meta http-equiv="Content-Security-Policy"
-        content="script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:* https://unpkg.com https://cdn.jsdelivr.net">
-
-    <!-- Your existing scripts -->
-    <script src="popup.js"></script>
-
-    <script>
-        const pineconeScript = document.createElement('script');
-        pineconeScript.src = 'https://unpkg.com/@pinecone-database/pinecone@0.3.0/dist/pinecone.min.js';
-        document.head.appendChild(pineconeScript);
-    </script>
-
 <body>
     <h1>CoRead</h1>
     <label for="sentenceInput">Enter a question:</label>
     <input type="text" id="sentenceInput">
-    <button onclick="displayMessage()">Submit</button>
+    <button id="submitBtn">Submit</button>
+    <!-- Your existing scripts -->
+    <script src="popup.js"></script>
 </body>
 </head>
 
