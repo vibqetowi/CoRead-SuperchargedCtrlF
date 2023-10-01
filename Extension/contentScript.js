@@ -17,9 +17,7 @@ pineconeScript.onload = async function () {
       const loadTokenizer = window['universal-sentence-encoder'].loadTokenizer;
       const numberedLines = function () {
         const text = document.body.innerText;
-        let numberedText = text.split('\n').map((line, index) => `${index + 1}. ${line}`).join('\n')
-        let numberedLines = []
-
+        let numberedText = text.split('\n')
         numberedText.split('\n').forEach(line => {
 
           if (line.length > 10) {
