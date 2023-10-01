@@ -30,9 +30,9 @@ This model is a generative AI that generates text upon input. The model used is 
 
 ### Generator API
 We also used the Cohere generator API to give an option that works better even though it is proprietary, Cohere was extensively used at MAIS 2022
-
-### Tutorial
 - [Cohere](https://cohere.com/)
+  
+### Tutorial
 
 As we are beginners, a tutorial video titled "Open Source Generative AI in Question-Answering (NLP) using Python" by James Brigg was heavily utilized for the AI part.
 
