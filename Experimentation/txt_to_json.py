@@ -1,24 +1,24 @@
 import json
 
-# Open the input text file
-with open('input.txt', 'r') as file:
-    # Read the content of the file and split it into paragraphs
-    paragraphs = file.read().split('\n\n')
+# Initialize an empty dictionary to store the reformatted data
+reformatted_data = {
+    'url': '',
+    'passage_text': []
+}
 
-# Create a list to store each paragraph as an object
-paragraph_objects = []
+# Read the input text file line by line
+with open('input.txt', 'r') as f:
+    lines = f.readlines()
 
-# Iterate through the paragraphs and create JSON objects
-for paragraph in paragraphs:
-    paragraph_obj = {
-        'passage_text': paragraph.strip()  # Remove leading/trailing whitespace
-    }
-    paragraph_objects.append(paragraph_obj)
+# The first line is assumed to be the URL
+reformatted_data['url'] = lines[0].strip()
 
-# Create a JSON array from the list of paragraph objects
-json_array = json.dumps(paragraph_objects, indent=4)
+# The remaining lines are the passage texts
+for line in lines[1:]:
+    reformatted_data['passage_text'].append(line.strip())
 
+# Write the reformatted data to a new JSON file
+with open('output.json', 'w') as f:
+    json.dump(reformatted_data, f, indent=4)
 
-# Optionally, save the JSON array to a file
-with open('output.json', 'w') as json_file:
-    json_file.write(json_array)
+print("Data reformatted and saved to 'output.json'")
