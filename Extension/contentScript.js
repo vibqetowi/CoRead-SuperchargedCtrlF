@@ -1,4 +1,5 @@
-const url = "https://1632-37-120-244-62.ngrok-free.app"
+const url = "http://127.0.0.1:5000"
+
 
 const lines = function () {
   const text = document.body.innerText;
