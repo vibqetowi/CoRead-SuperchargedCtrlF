@@ -1,4 +1,4 @@
-## Redefining Text Search
+# Redefining Text Search
 ![Demo Gif](https://github.com/vibqetowi/MAIS_hacks/blob/main/genghis_khan.gif)
 
 ### Inspiration
@@ -17,7 +17,7 @@
 - NodeJS
 - ngrok
 
-For detailed citations and attributions, visit [our GitHub page](https://github.com/vibqetowi/MAIS_hacks/blob/main/API/README.md).
+For detailed citations and attributions, visit [our API README](https://github.com/vibqetowi/MAIS_hacks/blob/main/API/README.md).
 
 ### Challenges we ran into
 💡 To put it succinctly, we faced challenges as beginners in both AI and extension development. Additionally, we had half of our team depart within the first two hours.
@@ -29,7 +29,7 @@ For detailed citations and attributions, visit [our GitHub page](https://github.
 🧠 CoRead opened our eyes to the potential of AI in improving everyday tasks. People use Ctrl+F daily, and once we fine-tune it, we'll integrate it into our personal lives.
 
 ### What's next for CoRead
-🌐 We primarily tested this on Wikipedia, especially the Genghis Khan page, which we humorously call "Super Genghis Khan." To make it universally useful, we're exploring open-source alternatives.
+🌐 We primarily tested this on Wikipedia, especially the Genghis Khan page, which we humorously call "Ctrl+Khan." To make it universally useful, we're exploring open-source alternatives.
 
 ### Acknowledgments:
-This story was co-written with assistance from ChatGPT, obviously.
+This README was co-written with assistance from ChatGPT.
