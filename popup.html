@@ -1,10 +1,20 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <title>MAIS Hacks</title>
     <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <script src="js/popup.js"></script>
+
+    <!-- Single CSP meta tag with all directives -->
     <meta http-equiv="Content-Security-Policy"
         content="script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:* https://unpkg.com https://cdn.jsdelivr.net">
 
+    <!-- Your existing scripts -->
+    <script src="js/popup.js"></script>
+
+    <script>
+        const pineconeScript = document.createElement('script');
+        pineconeScript.src = 'https://unpkg.com/@pinecone-database/pinecone@0.3.0/dist/pinecone.min.js';
+        document.head.appendChild(pineconeScript);
+    </script>
 </head>
