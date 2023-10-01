@@ -1,39 +1,40 @@
-const pineconeScript = document.createElement('script');
-pineconeScript.src = 'https://unpkg.com/@pinecone-database/pinecone@0.3.0/dist/pinecone.min.js';
-document.head.appendChild(pineconeScript);
+const url = "https://1632-37-120-244-62.ngrok-free.app"
 
-pineconeScript.onload = async function () {
-  const tfjsScript = document.createElement('script');
-  tfjsScript.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.8.0/dist/tf.min.js';
-  document.head.appendChild(tfjsScript);
+const lines = function () {
+  const text = document.body.innerText;
+  let textArr = text.split('\n')
+  let finalLines = []
+  textArr.forEach(line => {
 
-  tfjsScript.onload = async function () {
-    const tokenizerScript = document.createElement('script');
-    tokenizerScript.src = 'https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.0.0/dist/universal-sentence-encoder.min.js';
-    document.head.appendChild(tokenizerScript);
-
-    tokenizerScript.onload = async function () {
-      const numberedLines = function () {
-        const text = document.body.innerText;
-        let numberedText = text.split('\n')
-        numberedText.split('\n').forEach(line => {
-
-          if (line.length > 10) {
-            numberedLines.push(line)
-          }
-        });
-
-
-        console.log(numberedLines)
-        return numberedLines
-      }
-
-
-      const name = document.head.title
-      const pinecone = new Pinecone()
+    if (line.length > 10) {
+      finalLines.push(line)
     }
-  }
+  });
+  console.log(finalLines)
+  return finalLines
 }
+
+function httpGet(theUrl) {
+  var xmlHttp = new XMLHttpRequest();
+
+  xmlHttp.open("GET", theUrl, false);
+  xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*')
+  xmlHttp.setRequestHeader("ngrok-skip-browser-warning", 'true')
+  xmlHttp.send(null);
+  return xmlHttp.responseText;
+}
+
+
+let linesAll = lines()
+console.log(httpGet(`${url}/test_route`))
+
+
+
+
+
+
+
+
 
 
 
